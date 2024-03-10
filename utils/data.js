@@ -1,5 +1,5 @@
 const user = [
-[
+
     "Sam Sung",
     "Saad Maan",
     "Chris Bacon",
@@ -84,7 +84,7 @@ const user = [
     "Dave Chappelle",
     "John Mulaney",
     "Tina Fey"
-]
+
 
 ];
 
@@ -152,13 +152,14 @@ const getRandomUser = () =>
 const getRandomThought = () => {
   return {
     thoughtText: getRandomArrItem(thought),
-    username: getRandomUser(), // Adjust as needed to fit your user identification system
+    username: getRandomUser(),
     reactions: [{
-      reactionBody: getRandomArrItem(reaction), // Assume single reaction for simplicity
-      username: getRandomUser(), // This should be the username of the user reacting
+      reactionBody: getRandomArrItem(reaction),
+      username: getRandomUser(), 
     }],
   };
 };
 
-// Export the functions for use in seed.js
-module.exports = { user, thought, reaction };
+
+module.exports = { user, thought, reaction, getRandomArrItem };
+

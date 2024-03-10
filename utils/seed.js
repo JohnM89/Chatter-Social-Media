@@ -1,7 +1,14 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 const { reaction, user, thought } = require('./data');
+const { getRandomArrItem } = require('./data');
 
+
+
+const generateEmail = (username) => {
+    const cleanedUsername = username.replace(/\s+/g, '').toLowerCase();
+    return `${cleanedUsername}@example.com`;
+};
 
 connection.on('error', (err) => err);
 
@@ -12,10 +19,10 @@ connection.once('open', async () => {
   await Thought.deleteMany({});
 
   // Create users
-  const users = user.map(userName => ({
-    username: userName,
-    email: `${userName.toLowerCase().replace(/\s+/g, '')}@example.com`
-  }));
+    const users = user.map(username => ({
+        username,
+        email: generateEmail(username)
+    }));
 
   await User.create(users);
   console.log('Users inserted');
@@ -33,6 +40,7 @@ connection.once('open', async () => {
       }]
     };
   });
+
 
   await Thought.create(thoughtsData);
   console.log('Thoughts inserted');

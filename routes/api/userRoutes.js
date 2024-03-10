@@ -11,21 +11,21 @@ const {
 } = require('../../controllers/userController');
 
 // /api/students
-router.route('/').get(getAllUsers).post(createUser);
+router.route('/').get((req, res) => getAllUsers(req, res)).post((req, res) => createUser(req, res));
 
 // /api/students/count
-router.route('/count').get(userCount);
+router.route('/count').get((req, res) => userCount(req, res));
 
 // update a user
-router.route('/:userId').put(updateUser);
+router.route('/:userId').put((req, res) => updateUser(req, res));
 
 // /api/students/:studentId
-router.route('/user/:userId').get(getSingleUser).delete(deleteUser);
+router.route('/:userId').get((req, res) => getSingleUser(req, res)).delete((req, res) => deleteUser(req, res));
 
 // /api/students/:studentId/assignments
-router.route('/:userId/friends').post(addFriend);
+router.route('/:userId/friends').post((req, res) => addFriend(req, res));
 
 // /api/students/:studentId/assignments/:assignmentId
-router.route('/:userId/friends/:friendId').delete(removeFriend);
+router.route('/:userId/friends/:friendId').delete((req, res) => removeFriend(req, res));
 
 module.exports = router;
