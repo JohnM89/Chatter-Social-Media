@@ -1,5 +1,6 @@
 
 const { Schema, model, Types } = require('mongoose');
+const { format } = require('date-fns');
 
 const reactionSchema = new Schema({
   reactionId: {
@@ -18,7 +19,7 @@ const reactionSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: timestamp => timestamp.toLocaleString(),
+    get: timestamp => format(timestamp, "yyyy-MM-dd HH:mm:ss"),
   },
 }, {
   toJSON: {
@@ -38,7 +39,7 @@ const thoughtSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: timestamp => timestamp.toLocaleString(), // Example getter, adjust according to needs
+    get: (timestamp) => format(timestamp, "yyyy-MM-dd HH:mm:ss"),
   },
   username: {
     type: Schema.Types.ObjectId,
@@ -46,7 +47,6 @@ const thoughtSchema = new Schema({
     required: true,
   },
  reactions: [reactionSchema]
- // Embed the reactionSchema here
 }, {
   toJSON: {
     virtuals: true,
