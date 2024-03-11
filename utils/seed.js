@@ -48,9 +48,14 @@ connection.once('open', async () => {
 });
 
   // Insert thoughts data into the database
-  await Thought.create(thoughtsData);
-  
-  console.log('Thoughts inserted');
+const createdThoughts = await Thought.create(thoughtsData);
+console.log('Thoughts inserted');
+
+await Promise.all(createdUsers.map(async (user) => {
+  const userThoughts = createdThoughts.filter(thought => thought.username.toString() === user._id.toString());
+  const thoughtIds = userThoughts.map(thought => thought._id);
+  await User.findByIdAndUpdate(user._id, { $push: { thoughts: { $each: thoughtIds } } });
+}));
 
   console.info('Seeding complete! 🌱');
   process.exit(0);
