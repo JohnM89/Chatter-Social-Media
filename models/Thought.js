@@ -46,10 +46,8 @@ const thoughtSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  reactions: [{
-    type: Schema.Types.ObjectId, // Reference to the Reaction model (if you have one)
-    ref: 'Reaction', 
-  }], // Embed the reactionSchema here
+ reactions: [reactionSchema]
+ // Embed the reactionSchema here
 }, {
   toJSON: {
     virtuals: true,
