@@ -10,16 +10,18 @@ const generateEmail = (username) => {
   return `${cleanedUsername}@example.com`;
 };
 
+// connect to the database
 connection.on('error', (err) => err);
 
+// once open then seed 
 connection.once('open', async () => {
   console.log('connected');
 
-  // Clear existing data
+  // clear existing data
   await User.deleteMany({});
   await Thought.deleteMany({});
 
-  // Create users
+  // create users
   const users = user.map(username => ({
     username,
     email: generateEmail(username)
