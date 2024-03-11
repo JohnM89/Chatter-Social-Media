@@ -1,5 +1,6 @@
 const { User, Thought } = require('../models');
 
+// get all the thoughts
 async function getThoughts(req, res) {
   try {
      const thoughts = await Thought.find().populate('username reactions');  // Populate the 'user' field
@@ -9,6 +10,7 @@ async function getThoughts(req, res) {
   }
 }
 
+// get a single thought by id
 async function getSingleThought(req, res) {
   try {
     const thought = await Thought.findById(req.params.thoughtId).populate('username reactions');// Populate the 'user' field
@@ -24,6 +26,7 @@ async function getSingleThought(req, res) {
   }
 }
 
+// create a new thought
 async function createThought(req, res) {
   try {
     const { thoughtText, username } = req.body;
@@ -35,7 +38,7 @@ async function createThought(req, res) {
   }
 }
 
-
+// thought be gone
 async function deleteThought(req, res) {
   try {
     const thoughtToDelete = await Thought.findById(req.params.thoughtId);
@@ -52,7 +55,7 @@ async function deleteThought(req, res) {
     res.status(500).json(err);
   }
 }
-
+// update a thought
 async function updateThought(req, res) {
   try {
     const updatedThought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true });
@@ -64,7 +67,7 @@ async function updateThought(req, res) {
     res.status(500).json(err);
   }
 }
-
+// create a reaction
 async function createReaction(req, res) {
   try {
     const thought = await Thought.findById(req.params.thoughtId);
@@ -79,6 +82,7 @@ async function createReaction(req, res) {
   }
 }
 
+// remove a reaction
 async function removeReaction(req, res) {
   try {
     const thought = await Thought.findById(req.params.thoughtId);

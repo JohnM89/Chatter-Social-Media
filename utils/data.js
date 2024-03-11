@@ -1,3 +1,4 @@
+// usernames 
 const user = [
 
     "Sam Sung",
@@ -87,7 +88,7 @@ const user = [
 
 
 ];
-
+// some quotes for thoughts
 const thought = [
     "Life is short. Smile while you still have teeth.",
     "The best way to predict the future is to invent it.",
@@ -126,7 +127,7 @@ const thought = [
     "I could agree with you, but then we’d both be wrong."
 ]
 
-
+// reaction emojis
 const reaction = [
     "😀", "😂", "😍", "😢", "😡",
     "👍", "👎", "❤️", "🔥", "😮",

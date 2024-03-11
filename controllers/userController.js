@@ -1,6 +1,6 @@
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of users overall
+// get the number of users overall
 const userCount = async () => {
   try {
     const result = await User.aggregate([{ $count: "userCount" }]);
@@ -11,7 +11,7 @@ const userCount = async () => {
   }
 };
 
-// Get all users
+// get all the users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().populate('thoughts').populate('friends');
@@ -22,7 +22,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// Get a single user
+// get a single user by their id
 const getSingleUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId)
@@ -38,7 +38,7 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-// Create a new user
+// create a new user
 const createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
@@ -49,7 +49,7 @@ const createUser = async (req, res) => {
   }
 };
 
-// Update a user
+// updates a user
 const updateUser = async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true, runValidators: true });
@@ -63,7 +63,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user and remove their thoughts
+// delete a user and all their thoughts (morbid!)
 const deleteUser = async (req, res) => {
   try {
     const userToDelete = await User.findByIdAndDelete(req.params.userId);
@@ -78,7 +78,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// Add a friend to a user
+// add a friend to a user
 const addFriend = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -97,7 +97,7 @@ const addFriend = async (req, res) => {
   }
 };
 
-// Remove a friend from a user
+// remove a friend from a user
 const removeFriend = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(

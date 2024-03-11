@@ -1,8 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-
-// Assuming Thought model is defined elsewhere and imported if necessary
-
 const userSchema = new Schema({
   username: {
     type: String,
