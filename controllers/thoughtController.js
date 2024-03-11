@@ -12,6 +12,7 @@ async function getThoughts(req, res) {
 async function getSingleThought(req, res) {
   try {
     const thought = await Thought.findById(req.params.thoughtId).populate('username reactions');// Populate the 'user' field
+    .select('-__v');
 
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
