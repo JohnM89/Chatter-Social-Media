@@ -31,13 +31,7 @@ Welcome to **Talk Tick** 🎉 A vibrant & buzzing social networking API designed
 Your insights and improvements are welcome! Feel free to fork the repository, make your changes, and shoot a pull request ✨
 
 
-## 🖋️ Author
-
-Yours truly, 😎
-
-
-
-### 🎥 Walkthrough Videos
+## 🎥 Walkthrough Videos
 
 - **Get All & One of Users & Thoughts**: [Watch here](https://drive.google.com/file/d/1nXFchFIdoDeAsUQdR3OZg9DbmaLI1izj/view)
 
@@ -50,3 +44,7 @@ Yours truly, 😎
 - **Delete User & Delete Thought**: [Watch on Loom](https://www.loom.com/share/476e5be98cc14760bd54ac9042eb545c?sid=2dbf5bbc-72f7-40e2-b040-14ac5ed16d5f)
 
  🌟
+
+## 🖋️ Author
+
+Yours truly, JohnM89 😎
