@@ -77,7 +77,10 @@ connection.once('open', async () => {
 
   // promise.all to push friend id to user
   await Promise.all(createdUsers.map(async (user) => {
-    const userFriends = createdUsers.filter(friend => friend._id.toString() !== user._id.toString());
+    const potentialFriends = createdUsers.filter(friend => friend._id.toString() !== user._id.toString());
+    // randomly shuffles the array and selevts three friends
+    const shuffledFriends = potentialFriends.sort(() => 0.5 - Math.random());
+    const userFriends = shuffledFriends.slice(0, 3);
     const friendIds = userFriends.map(friend => friend._id);
     await User.findByIdAndUpdate(user._id, { $push: { friends: { $each: friendIds } } });
   }));
