@@ -35,22 +35,21 @@ connection.once('open', async () => {
   createdUsers.forEach(user => {
     const numThoughts = Math.floor(Math.random() * 5) + 1; // Random number of thoughts per user
     for (let i = 0; i < numThoughts; i++) {
-      const reactionsData = [{
+    thoughtsData.push({
+      thoughtText: getRandomArrItem(thought),
+      username: user._id,
+      reactions: [{ // This assumes each thought starts with one reaction for simplification
         reactionBody: getRandomArrItem(reaction),
-        username: user.username, // Assign the username of the user to the 'username' field in reactions
-        reactionId: new mongoose.Types.ObjectId() // Generate a new ObjectId for each reaction
-      }];
-      
-      thoughtsData.push({
-        thoughtText: getRandomArrItem(thought),
-        username: user._id, // Assign the ObjectId of the user to the 'username' field
-        reactions: reactionsData
-      });
-    }
-  });
+        username: user.username,
+        reactionId: new mongoose.Types.ObjectId()
+      }]
+    });
+  }
+});
 
   // Insert thoughts data into the database
   await Thought.create(thoughtsData);
+  
   console.log('Thoughts inserted');
 
   console.info('Seeding complete! 🌱');
