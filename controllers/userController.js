@@ -85,7 +85,7 @@ const addFriend = async (req, res) => {
       req.params.userId,
       { $addToSet: { friends: req.body.friendId } },
       { new: true }
-      .select('-__v');
+      
     );
     if (!user) {
       return res.status(404).json({ message: 'No user found with that ID :(' });
