@@ -2,7 +2,7 @@ const { User, Thought } = require('../models');
 
 async function getThoughts(req, res) {
   try {
-    const thoughts = await Thought.find();
+     const thoughts = await Thought.find().populate('username reactions');  // Populate the 'user' field
     res.json(thoughts);
   } catch (err) {
     res.status(500).json(err);
@@ -11,10 +11,12 @@ async function getThoughts(req, res) {
 
 async function getSingleThought(req, res) {
   try {
-    const thought = await Thought.findById(req.params.thoughtId);
+    const thought = await Thought.findById(req.params.thoughtId).populate('username reactions');// Populate the 'user' field
+
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
     }
+
     res.json(thought);
   } catch (err) {
     res.status(500).json(err);
@@ -23,14 +25,15 @@ async function getSingleThought(req, res) {
 
 async function createThought(req, res) {
   try {
-    const { thoughtText, username, userId } = req.body;
-    const newThought = await Thought.create({ thoughtText, username, userId });
+    const { thoughtText, username } = req.body;
+    const newThought = await Thought.create({ thoughtText, username });
     res.json(newThought);
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
   }
 }
+
 
 async function deleteThought(req, res) {
   try {

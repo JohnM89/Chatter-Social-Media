@@ -149,6 +149,7 @@ const getRandomUser = () =>
     `${getRandomArrItem(user[0])} ${getRandomArrItem(user[0])}`;
 
 // Function to generate random assignments that we can add to student object.
+// Function to generate random assignments that we can add to student object.
 const getRandomThought = () => {
   return {
     thoughtText: getRandomArrItem(thought),
@@ -156,6 +157,7 @@ const getRandomThought = () => {
     reactions: [{
       reactionBody: getRandomArrItem(reaction),
       username: getRandomUser(), 
+      reactionId: new mongoose.Types.ObjectId() // Assuming you're using mongoose and need to generate a reactionId
     }],
   };
 };

@@ -1,13 +1,13 @@
+const mongoose = require('mongoose');
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { reaction, user, thought } = require('./data');
-const { getRandomArrItem } = require('./data');
+const { reaction, user, thought, getRandomArrItem,  } = require('./data');
 
 
-
+// Function to generate a random email based on username
 const generateEmail = (username) => {
-    const cleanedUsername = username.replace(/\s+/g, '').toLowerCase();
-    return `${cleanedUsername}@example.com`;
+  const cleanedUsername = username.replace(/\s+/g, '').toLowerCase();
+  return `${cleanedUsername}@example.com`;
 };
 
 connection.on('error', (err) => err);
@@ -15,36 +15,45 @@ connection.on('error', (err) => err);
 connection.once('open', async () => {
   console.log('connected');
 
+  // Clear existing data
   await User.deleteMany({});
   await Thought.deleteMany({});
 
   // Create users
-    const users = user.map(username => ({
-        username,
-        email: generateEmail(username)
-    }));
+  const users = user.map(username => ({
+    username,
+    email: generateEmail(username)
+  }));
 
-  await User.create(users);
+  // Insert users into the database
+  const createdUsers = await User.create(users);
   console.log('Users inserted');
 
-  const createdUsers = await User.find();
-  const thoughtsData = thought.map(thoughtText => {
-    const userSample = getRandomArrItem(createdUsers);
-    const sampledUsername = userSample.username; 
-    return {
-      thoughtText,
-      username: sampledUsername,
-      reactions: [{
+  // Create thoughts for each user
+  const thoughtsData = [];
+
+  createdUsers.forEach(user => {
+    const numThoughts = Math.floor(Math.random() * 5) + 1; // Random number of thoughts per user
+    for (let i = 0; i < numThoughts; i++) {
+      const reactionsData = [{
         reactionBody: getRandomArrItem(reaction),
-        username: sampledUsername, 
-      }]
-    };
+        username: user.username, // Assign the username of the user to the 'username' field in reactions
+        reactionId: new mongoose.Types.ObjectId() // Generate a new ObjectId for each reaction
+      }];
+      
+      thoughtsData.push({
+        thoughtText: getRandomArrItem(thought),
+        username: user._id, // Assign the ObjectId of the user to the 'username' field
+        reactions: reactionsData
+      });
+    }
   });
 
-
+  // Insert thoughts data into the database
   await Thought.create(thoughtsData);
   console.log('Thoughts inserted');
 
   console.info('Seeding complete! 🌱');
   process.exit(0);
 });
+

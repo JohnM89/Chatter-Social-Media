@@ -42,10 +42,14 @@ const thoughtSchema = new Schema({
     get: timestamp => timestamp.toLocaleString(), // Example getter, adjust according to needs
   },
   username: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
-  reactions: [reactionSchema], // Embed the reactionSchema here
+  reactions: [{
+    type: Schema.Types.ObjectId, // Reference to the Reaction model (if you have one)
+    ref: 'Reaction', 
+  }], // Embed the reactionSchema here
 }, {
   toJSON: {
     virtuals: true,
