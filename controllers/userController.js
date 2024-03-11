@@ -70,7 +70,7 @@ const deleteUser = async (req, res) => {
     if (!userToDelete) {
       return res.status(404).json({ message: 'No such user exists!' });
     }
-    await Thought.deleteMany({ username: userToDelete.username });
+    await Thought.deleteMany({ username: userToDelete._id });
     res.json({ message: 'User and their thoughts successfully deleted' });
   } catch (err) {
     console.error(err);
