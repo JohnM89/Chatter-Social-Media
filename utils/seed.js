@@ -49,6 +49,7 @@ connection.once('open', async () => {
 });
 
 // create a random number of friends for each user
+// assumes an ideal two way friendship model, A > B therefore B < A
   createdUsers.forEach(user => {
     const numFriends = Math.floor(Math.random() * (createdUsers.length - 1)) + 1;
     const friendIds = [];
