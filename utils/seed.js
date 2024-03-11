@@ -75,6 +75,13 @@ connection.once('open', async () => {
     await User.findByIdAndUpdate(user._id, { $push: { thoughts: { $each: thoughtIds } } });
   }));
 
+  // promise.all to push friend id to user
+  await Promise.all(createdUsers.map(async (user) => {
+    const userFriends = createdUsers.filter(friend => friend._id.toString() !== user._id.toString());
+    const friendIds = userFriends.map(friend => friend._id);
+    await User.findByIdAndUpdate(user._id, { $push: { friends: { $each: friendIds } } });
+  }));
+
   console.info('Seeding complete! 🌱');
   process.exit(0);
 });
