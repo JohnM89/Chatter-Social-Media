@@ -29,8 +29,17 @@ async function getSingleThought(req, res) {
 // create a new thought
 async function createThought(req, res) {
   try {
-    const { thoughtText, username } = req.body;
-    const newThought = await Thought.create({ thoughtText, username });
+    const { thoughtText, userId } = req.body; 
+    const newThought = await Thought.create({ thoughtText, username: userId });
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+
+    user.thoughts.push(newThought._id);
+    await user.save(); 
     res.json(newThought);
   } catch (err) {
     console.error(err);
