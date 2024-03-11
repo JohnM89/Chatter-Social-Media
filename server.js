@@ -3,14 +3,14 @@ const db = require('./config/connection');
 const routes = require('./routes');
 // const mongoose = require('mongoose');
 
-// const cwd = process.cwd();
+const cwd = process.cwd();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// const activity = cwd.includes('User')
-//   ? cwd.split('User')[1]
-//   : cwd;
+const activity = cwd.includes('Reactions')
+  ? cwd.split('Reactions')[1]
+  : cwd;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
